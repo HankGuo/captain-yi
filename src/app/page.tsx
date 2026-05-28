@@ -3,14 +3,16 @@ import { getSortedChaptersData } from '@/lib/markdown';
 import { BookOpen, Calendar, ChevronRight } from 'lucide-react';
 
 import Image from 'next/image';
+import PortraitModal from './components/PortraitModal';
 
 export default function Home() {
   const allChaptersData = getSortedChaptersData();
 
   return (
     <div className="min-h-screen font-sans selection:bg-amber-900/50">
+      <PortraitModal />
       {/* 头部：封面图 */}
-      <div className="relative w-full aspect-[21/9] min-h-[30vh] max-h-[50vh] md:max-h-[60vh] flex flex-col items-center justify-center overflow-hidden border-b border-stone-800/50">
+      <div className="relative w-full aspect-[21/9] min-h-[30vh] max-h-[50vh] md:max-h-[60vh] flex flex-col items-center justify-center overflow-hidden border-b border-stone-300">
         <Image 
           src="/cover.png" 
           alt="易帝本纪：千古一帝的足球霸业" 
@@ -18,21 +20,20 @@ export default function Home() {
           priority
           className="object-cover object-center"
         />
-        {/* 底部渐变过渡到页面背景色，不添加任何遮挡文字的元素 */}
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent pointer-events-none"></div>
+        {/* 底部渐变过渡到页面背景色 */}
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-100 via-transparent to-transparent pointer-events-none"></div>
       </div>
 
-      {/* 独立文案区：放在封面图下方，不遮挡封面 */}
+      {/* 独立文案区：放在封面图下方 */}
       <div className="text-center px-6 py-12 relative z-10">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-yellow-600 drop-shadow-lg mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-amber-700 to-amber-900 drop-shadow-sm mb-4" style={{ fontFamily: 'Georgia, serif' }}>
           易帝本纪
         </h1>
-        <p className="text-sm md:text-base text-stone-400 tracking-widest uppercase mb-1">KING OF JIN&apos;EN</p>
-        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mx-auto my-4"></div>
-        <p className="text-sm text-stone-300 italic max-w-md mx-auto leading-relaxed mb-8">
+        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-700/50 to-transparent mx-auto my-4"></div>
+        <p className="text-sm text-stone-600 italic max-w-md mx-auto leading-relaxed mb-8">
           “权力如绿茵之草，非强者不能践踏。此书，录孤之霸业，传万世之威名。”
         </p>
-        <div className="inline-flex items-center gap-2 text-xs text-amber-500/80 uppercase tracking-widest border border-amber-900/30 px-4 py-2 rounded-full bg-stone-900/40 backdrop-blur-md">
+        <div className="inline-flex items-center gap-2 text-xs text-amber-800 uppercase tracking-widest border border-amber-900/20 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md shadow-sm">
           <BookOpen className="w-4 h-4" />
           <span>王朝卷宗</span>
         </div>
