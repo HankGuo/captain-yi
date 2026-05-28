@@ -39,6 +39,7 @@ export function getSortedChaptersData(): ChapterData[] {
     });
 
   return allChaptersData.sort((a: ChapterData, b: ChapterData) => {
+    // 强制按照时间正序排列（最老的章节在最前面，即第一章在最上面）
     if (a.date < b.date) {
       return -1;
     } else {
@@ -66,11 +67,15 @@ export async function getChapterData(id: string): Promise<ChapterData> {
   const processedClassical = await remark().use(html).process(classicalText);
 
   // 获取所有章节，以便计算上一章/下一章
+  // 现在 getSortedChaptersData 是按照时间正序排列的（第一章在 index 0）
   const allChapters = getSortedChaptersData();
   const currentIndex = allChapters.findIndex(chapter => chapter.id === id);
   
-  const prevChapter = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1].id : null;
-  const nextChapter = currentIndex > 0 ? allChapters[currentIndex - 1].id : null;
+  // 按照阅读顺序（时间正序）：
+  // "上一章" 是当前 index - 1
+  // "下一章" 是当前 index + 1
+  const prevChapter = currentIndex > 0 ? allChapters[currentIndex - 1].id : null;
+  const nextChapter = currentIndex !== -1 && currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1].id : null;
 
   return {
     id,
