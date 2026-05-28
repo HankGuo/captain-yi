@@ -1,0 +1,72 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { remark } from 'remark';
+import html from 'remark-html';
+
+const chaptersDirectory = path.join(process.cwd(), 'src/content/chapters');
+
+export interface ChapterData {
+  id: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  contentHtmlColloquial?: string;
+  contentHtmlClassical?: string;
+}
+
+export function getSortedChaptersData(): ChapterData[] {
+  if (!fs.existsSync(chaptersDirectory)) {
+    return [];
+  }
+  
+  const fileNames = fs.readdirSync(chaptersDirectory);
+  const allChaptersData = fileNames
+    .filter((fileName: string) => fileName.endsWith('.md'))
+    .map((fileName: string) => {
+      const id = fileName.replace(/\.md$/, '');
+      const fullPath = path.join(chaptersDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+      const matterResult = matter(fileContents);
+
+      return {
+        id,
+        ...(matterResult.data as { title: string; date: string; excerpt: string }),
+      };
+    });
+
+  return allChaptersData.sort((a: ChapterData, b: ChapterData) => {
+    if (a.date < b.date) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
+}
+
+export async function getChapterData(id: string): Promise<ChapterData> {
+  const fullPath = path.join(chaptersDirectory, `${id}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  const matterResult = matter(fileContents);
+
+  const rawContent = matterResult.content;
+  
+  // 按照标记拆分不同文风的内容
+  const colloquialMatch = rawContent.match(/### colloquial([\s\S]*?)(?=### classical|$)/i);
+  const classicalMatch = rawContent.match(/### classical([\s\S]*?)(?=### colloquial|$)/i);
+
+  const colloquialText = colloquialMatch ? colloquialMatch[1] : rawContent;
+  const classicalText = classicalMatch ? classicalMatch[1] : '暂无文言文版本。';
+
+  const processedColloquial = await remark().use(html).process(colloquialText);
+  const processedClassical = await remark().use(html).process(classicalText);
+
+  return {
+    id,
+    contentHtmlColloquial: processedColloquial.toString(),
+    contentHtmlClassical: processedClassical.toString(),
+    ...(matterResult.data as { title: string; date: string; excerpt: string }),
+  };
+}
