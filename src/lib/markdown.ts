@@ -13,6 +13,8 @@ export interface ChapterData {
   excerpt: string;
   contentHtmlColloquial?: string;
   contentHtmlClassical?: string;
+  prevChapterId?: string | null;
+  nextChapterId?: string | null;
 }
 
 export function getSortedChaptersData(): ChapterData[] {
@@ -63,10 +65,19 @@ export async function getChapterData(id: string): Promise<ChapterData> {
   const processedColloquial = await remark().use(html).process(colloquialText);
   const processedClassical = await remark().use(html).process(classicalText);
 
+  // 获取所有章节，以便计算上一章/下一章
+  const allChapters = getSortedChaptersData();
+  const currentIndex = allChapters.findIndex(chapter => chapter.id === id);
+  
+  const prevChapter = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1].id : null;
+  const nextChapter = currentIndex > 0 ? allChapters[currentIndex - 1].id : null;
+
   return {
     id,
     contentHtmlColloquial: processedColloquial.toString(),
     contentHtmlClassical: processedClassical.toString(),
+    prevChapterId: prevChapter,
+    nextChapterId: nextChapter,
     ...(matterResult.data as { title: string; date: string; excerpt: string }),
   };
 }

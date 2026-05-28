@@ -47,15 +47,35 @@ export default async function ChapterPage({ params }: { params: { id: string } }
           <ChapterContent 
             colloquialHtml={chapterData.contentHtmlColloquial || ''} 
             classicalHtml={chapterData.contentHtmlClassical || ''} 
+            prevChapterId={chapterData.prevChapterId}
+            nextChapterId={chapterData.nextChapterId}
           />
         </article>
       </main>
       
-      {/* 底部导航 */}
+      {/* 底部导航栏：上一章、目录、下一章 */}
       <div className="max-w-2xl mx-auto px-5 pb-12">
-        <Link href="/" className="block w-full py-4 text-center text-[#52525B] hover:text-[#1C1C1C] border border-[#D4D4D8] hover:border-[#1C1C1C] rounded-sm transition-colors font-serif text-sm tracking-widest bg-white/50">
-          合卷返回
-        </Link>
+        <div className="flex items-center justify-between border-t border-[#D4D4D8] pt-6">
+          {chapterData.prevChapterId ? (
+            <Link href={`/chapter/${chapterData.prevChapterId}`} className="flex items-center gap-2 text-[#52525B] hover:text-[#1C1C1C] transition-colors font-sans text-sm p-2 -ml-2">
+              <ArrowLeft className="w-4 h-4" /> 上一章
+            </Link>
+          ) : (
+            <div className="w-20"></div> // 占位
+          )}
+          
+          <Link href="/" className="text-[#52525B] hover:text-[#1C1C1C] transition-colors font-serif text-sm tracking-widest border border-[#D4D4D8] hover:border-[#1C1C1C] px-6 py-2 rounded-sm bg-white/50">
+            合卷
+          </Link>
+
+          {chapterData.nextChapterId ? (
+            <Link href={`/chapter/${chapterData.nextChapterId}`} className="flex items-center gap-2 text-[#52525B] hover:text-[#1C1C1C] transition-colors font-sans text-sm p-2 -mr-2">
+              下一章 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </Link>
+          ) : (
+            <div className="w-20"></div> // 占位
+          )}
+        </div>
       </div>
     </div>
   );

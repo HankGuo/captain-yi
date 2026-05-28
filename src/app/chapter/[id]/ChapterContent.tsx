@@ -2,18 +2,41 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSwipeable } from 'react-swipeable';
+import { useRouter } from 'next/navigation';
 
 export default function ChapterContent({
   colloquialHtml,
   classicalHtml,
+  prevChapterId,
+  nextChapterId,
 }: {
   colloquialHtml: string;
   classicalHtml: string;
+  prevChapterId?: string | null;
+  nextChapterId?: string | null;
 }) {
   const [style, setStyle] = useState<'colloquial' | 'classical'>('colloquial');
+  const router = useRouter();
+
+  // 添加手势滑动支持
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      if (nextChapterId) {
+        router.push(`/chapter/${nextChapterId}`);
+      }
+    },
+    onSwipedRight: () => {
+      if (prevChapterId) {
+        router.push(`/chapter/${prevChapterId}`);
+      }
+    },
+    preventScrollOnSwipe: false,
+    trackMouse: false
+  });
 
   return (
-    <div className="relative">
+    <div className="relative" {...handlers}>
       <div className="flex justify-center mb-12 not-prose sticky top-14 z-40 bg-[#F4F4F5]/90 backdrop-blur-sm py-4 border-b border-[#D4D4D8]/50">
         <div className="bg-[#E4E4E7] p-1 rounded-sm inline-flex font-sans text-sm border border-[#D4D4D8]">
           <button
