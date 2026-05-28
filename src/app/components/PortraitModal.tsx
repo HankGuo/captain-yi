@@ -25,12 +25,12 @@ export default function PortraitModal() {
             {/* 关闭按钮 */}
             <button 
               onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors backdrop-blur-md"
+              className="absolute top-4 right-4 z-20 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors backdrop-blur-md"
             >
               <X className="w-5 h-5" />
             </button>
             
-            {/* 肖像图 */}
+            {/* 纯净的肖像图，不加任何遮罩和文字 */}
             <div className="relative w-full aspect-[2/3]">
               <Image 
                 src="/bg.png" 
@@ -39,16 +39,6 @@ export default function PortraitModal() {
                 priority
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent"></div>
-            </div>
-
-            {/* 尊号文案 */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
-              <h2 className="text-3xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-yellow-600 mb-2" style={{ fontFamily: 'Georgia, serif' }}>
-                金恩之王
-              </h2>
-              <p className="text-stone-400 text-sm tracking-widest mb-4">KING OF JIN&apos;EN</p>
-              <div className="w-12 h-0.5 bg-amber-500/50 mx-auto"></div>
             </div>
           </div>
         </div>
