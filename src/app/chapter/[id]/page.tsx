@@ -26,8 +26,9 @@ export default async function Chapter({ params }: { params: { id: string } }) {
   const nextChapter = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1] : null;
 
   return (
-    <div className="min-h-screen bg-[#fcfbf9] text-stone-800 font-serif selection:bg-amber-200">
-      <header className="sticky top-0 z-50 bg-[#fcfbf9]/90 backdrop-blur-md border-b border-stone-200 px-4 py-3 flex items-center justify-between">
+    <div className="min-h-screen font-sans selection:bg-amber-900/50 text-stone-300">
+      {/* 顶部导航栏 */}
+      <header className="sticky top-0 z-50 bg-stone-950/80 backdrop-blur-md border-b border-stone-800 px-4 py-3 flex items-center justify-between">
         <Link href="/" className="inline-flex items-center gap-1 text-sm text-stone-500 hover:text-stone-900 transition-colors">
           <ArrowLeft className="w-4 h-4" /> 返回目录
         </Link>

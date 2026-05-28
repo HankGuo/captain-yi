@@ -8,9 +8,9 @@ export default function Home() {
   const allChaptersData = getSortedChaptersData();
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-300 font-sans selection:bg-amber-900/50">
-      {/* 封面区域 */}
-      <div className="relative w-full aspect-[21/9] min-h-[30vh] max-h-[50vh] md:max-h-[60vh] flex flex-col items-center justify-center overflow-hidden border-b border-stone-800">
+    <div className="min-h-screen font-sans selection:bg-amber-900/50">
+      {/* 头部：封面图 */}
+      <div className="relative w-full aspect-[21/9] min-h-[30vh] max-h-[50vh] md:max-h-[60vh] flex flex-col items-center justify-center overflow-hidden border-b border-stone-800/50">
         <Image 
           src="/cover.png" 
           alt="易帝本纪：千古一帝的足球霸业" 
@@ -18,21 +18,23 @@ export default function Home() {
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/40 to-transparent z-10"></div>
-        
-        <div className="relative z-20 text-center px-6 mt-auto pb-10">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-yellow-600 drop-shadow-lg mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-            易帝本纪
-          </h1>
-          <p className="text-sm md:text-base text-stone-400 tracking-widest uppercase mb-1">KING OF JIN&apos;EN</p>
-          <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-500 to-transparent mx-auto my-4"></div>
-          <p className="text-sm text-stone-300 italic max-w-md mx-auto leading-relaxed mb-6">
-            “权力如绿茵之草，非强者不能践踏。此书，录孤之霸业，传万世之威名。”
-          </p>
-          <div className="inline-flex items-center gap-2 text-xs text-amber-500/80 uppercase tracking-widest border border-amber-900/30 px-4 py-2 rounded-full bg-stone-900/80 backdrop-blur-md">
-            <BookOpen className="w-4 h-4" />
-            <span>内部风云录 · 电子周刊</span>
-          </div>
+        {/* 底部渐变过渡到页面背景色，不添加任何遮挡文字的元素 */}
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent pointer-events-none"></div>
+      </div>
+
+      {/* 独立文案区：放在封面图下方，不遮挡封面 */}
+      <div className="text-center px-6 py-12 relative z-10">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-amber-200 to-yellow-600 drop-shadow-lg mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+          易帝本纪
+        </h1>
+        <p className="text-sm md:text-base text-stone-400 tracking-widest uppercase mb-1">KING OF JIN&apos;EN</p>
+        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mx-auto my-4"></div>
+        <p className="text-sm text-stone-300 italic max-w-md mx-auto leading-relaxed mb-8">
+          “权力如绿茵之草，非强者不能践踏。此书，录孤之霸业，传万世之威名。”
+        </p>
+        <div className="inline-flex items-center gap-2 text-xs text-amber-500/80 uppercase tracking-widest border border-amber-900/30 px-4 py-2 rounded-full bg-stone-900/40 backdrop-blur-md">
+          <BookOpen className="w-4 h-4" />
+          <span>王朝卷宗</span>
         </div>
       </div>
 
