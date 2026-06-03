@@ -13,7 +13,7 @@ export default function Home() {
       {/* 头部：封面图 */}
       <div className="relative w-full aspect-[21/9] min-h-[30vh] max-h-[50vh] md:max-h-[60vh] flex flex-col items-center justify-center overflow-hidden border-b border-stone-800">
         <Image 
-          src="/cover.png" 
+          src="/cover.webp" 
           alt="易帝本纪：千古一帝的足球霸业" 
           fill
           priority

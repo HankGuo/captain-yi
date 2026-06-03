@@ -33,7 +33,7 @@ export default function PortraitModal() {
             {/* 纯净的肖像图，不加任何遮罩和文字 */}
             <div className="relative w-full aspect-[2/3]">
               <Image 
-                src="/bg.png" 
+                src="/bg.webp" 
                 alt="易帝肖像" 
                 fill
                 priority
