@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "易帝本纪 - 千古一帝的足球霸业",
-  description: "金恩之王，易帝本纪。记录绿茵场上的无上霸业与权力之争。",
+  description: "易家独大 - 内部风云录电子周刊",
 };
 
 export default function RootLayout({
@@ -15,9 +13,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" className="scroll-smooth">
       {/* 默认深色庄重背景，具体页面的样式在具体的 page.tsx 覆盖 */}
-      <body className={`${inter.className} bg-stone-950 text-stone-300 min-h-screen selection:bg-amber-900/50`}>
+      <body className="bg-stone-950 text-stone-300 font-serif min-h-screen relative antialiased selection:bg-stone-700">
         {children}
       </body>
     </html>

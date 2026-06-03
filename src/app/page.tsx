@@ -1,11 +1,13 @@
 import Link from 'next/link';
-import { getSortedChaptersData } from '@/lib/markdown';
+import { getSortedChaptersData } from '@/lib/db';
 import { BookOpen, Calendar, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import PortraitModal from './components/PortraitModal';
 
-export default function Home() {
-  const allChaptersData = getSortedChaptersData();
+export const runtime = 'edge';
+
+export default async function Home() {
+  const allChaptersData = await getSortedChaptersData();
 
   return (
     <div className="min-h-screen font-sans selection:bg-amber-900/50 bg-stone-950">

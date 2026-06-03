@@ -1,0 +1,9 @@
+name = "captain-yi"
+pages_build_output_dir = ".vercel/output/static"
+compatibility_date = "2024-05-27"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "captain-yi-db"
+database_id = "2efc56c8-aa05-4347-972d-c1eccdfd1f94"

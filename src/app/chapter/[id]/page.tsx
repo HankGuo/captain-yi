@@ -1,17 +1,25 @@
-import { getChapterData, getSortedChaptersData } from '@/lib/markdown';
+import { getChapterData } from '@/lib/db';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import ChapterContent from './ChapterContent';
 
-export async function generateStaticParams() {
-  const chapters = getSortedChaptersData();
-  return chapters.map((chapter) => ({
-    id: chapter.id,
-  }));
-}
+export const runtime = 'edge';
 
 export default async function ChapterPage({ params }: { params: { id: string } }) {
   const chapterData = await getChapterData(params.id);
+
+  if (!chapterData) {
+    return (
+      <div className="min-h-screen bg-stone-100 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-serif font-bold text-stone-800 mb-4">章节未找到</h1>
+          <Link href="/" className="text-stone-500 hover:text-stone-800 transition-colors">
+            返回目录
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F4F4F5] text-[#1C1C1C] font-serif selection:bg-stone-300">
